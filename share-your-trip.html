@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!--
+      CIS-172 _ JavaScript
+      Final Project
+
+      Name: Farah Hammoud
+      Date: 05/03/2025   
+
+      Filename: Share Your Trip.html
+
+      Page Decription: This page lets users create a personal profile by entering their contact information.
+      After submitting, users can share their travel stories and upload a photo to accompany each memory.
+      All shared stories are displayed as stylish horizontal cards in a digital travel diary format.
+   -->
+    <meta charset="utf-8"/>
+    <title>Where To Fly Next - Share Your Trip</title>
+    <link rel="stylesheet" href="styling.css">
+    <script src="modernizr.custom.05819.js"></script>
+</head>    
+
+<body>
+    <div class="content">
+
+      <header>
+        <section class="logo-section-otherpages">
+            <img src="images/WhereFly Logo.png" height="100" width=auto alt="Where to Fly Next logo" class="logo">
+        </section>	
+
+        <nav>
+			<button class="headernav"><a href="about.html">About</a></button>
+			<button class="headernav"><a href="Trip Calculator.html">trip-calculator</a></button>
+			<button class="headernav"><a href="Share Your Trip.html">share-your-trip</a></button>
+			<button class="headernav"><a href="Travel Checklist.html">travel-checklist</a></button>
+			<button class="headernav"><a href="index.html">Home</a></button>
+		</nav>
+    </header>
+
+        <h1>Your Favorite Travel Stories</h1>
+        <hr class="line-2">    
+
+        <div class="text">
+            <p>In this page you will be able to create a profile, enter your personnal information, but also you favorite travel stories, accompanied by a picture.
+                This is page is a small travel diary. 
+            </p>
+        </div>
+
+        <button id="resetButton" class="special-button">Reset All Data</button>
+  
+        <div class="form-section">
+        <div class="form-container">
+            <h2 class="title" id="personalInfoTitle">Enter Your Personal Info</h2>
+            <form class="form-box" id="personalForm">
+                <label for="name">Name *</label>
+                <input type="text" id="name" required>
+            
+                <label for="email">Email *</label>
+                <input type="email" id="email" required>
+            
+                <label for="phone">Phone Number *</label>
+                <input type="text" id="phone" required>
+            
+                <label for="address">Address *</label>
+                <input type="text" id="address" required>
+            
+                <label for="zipCode">Zip Code *</label>
+                <input type="text" id="zipCode" required>
+            
+                <label for="city">City *</label>
+                <input type="text" id="city" required>
+            
+                <div id="errorText" class="message"></div>
+                <div id="numErrorText" class="message"></div>
+
+                <button class="special-button" type="submit">Submit My Info</button>
+            </form>
+        </div>
+        </div>
+         
+        <div class="personal-info-wrapper">
+            <div id="personalInfoCard" class="personal-info-card">
+                <h3>Personal Information</h3>
+                <div id="personalInfoContent"></div>
+            </div>
+        </div>    
+
+        <div class="form-section" id="storyForm" style="display: none;">
+            <div class="form-container">  
+                <h2 class="title">Share Your Travel Story</h2>
+                <form id="storyForm" class="form-box">
+                    <label for="destination">Destination *</label>
+                    <input type="text" id="destination" required>
+                
+                    <label for="story">Your Travel Story *</label>
+                    <textarea id="story" rows="5" required></textarea>
+                
+                    <label for="tripImage">Optional Picture</label>
+                    <input type="file" id="tripImage" accept="image/*" required>
+                
+                    <div id="storyErrorText" class="message"></div>
+                
+                    <button class="special-button" type="submit">Share My Stories</button>
+                </form>
+            </div>
+        </div>
+
+        <h2 class="h2title">Shared Stories</h2>
+        <div id="storyList" class="story-card-container">
+            <!-- Multiple story cards will be displayed here -->
+            <div class="story-card-horizontal">
+                <div class="image-container">
+                    <img src="image.jpg" alt="User trip photo">
+                </div>
+                <div class="story-content">
+                    <p><strong>Destination Name</strong></p>
+                    <p>"Story content goes here"</p>
+                    <p><small>Posted on: Month Date, Year</small></p>
+                </div>
+                <button class="special-button">Remove</button>
+            </div>
+        </div>
+
+        <p id="storyInfoMsg" class="message">
+            Please fill out your personal information above before sharing a story.
+        </p>
+              
+
+        <hr class="line-2"></hr>
+
+        <footer class="footer">
+            <hr class="line"></hr>
+            <div class="footer-section">
+                <p>fmhammoud4@hawkmail.hfcc.edu<br>
+				hfarahmorgann@gmail.com<br>
+                734 846-6651<br>
+                Instagram: <a href="https://www.instagram.com/fara_hhammoud/" target="_blank">My Travel Instagram</a><br><br>
+                <p><strong>&copy; 2025 Where to Fly Next | Web Designer and Web Developer_Farah Hammoud</strong></p>
+            </div>
+        </footer>
+
+        <script>
+            "use strict"; // Enable strict mode
+        
+            var personalInfo = JSON.parse(localStorage.getItem('personalInfo')) || null;
+            var personalForm = document.getElementById('personalForm');
+            var storyForm = document.getElementById('storyForm');
+            var personalInfoCard = document.getElementById('personalInfoCard');
+            var storyList = document.getElementById('storyList');
+            var stories = JSON.parse(localStorage.getItem('stories')) || [];
+        
+            // Format date
+            function formatDate(date) {
+                return new Date(date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+            }
+        
+            // Display personal info
+            function displayPersonalInfo() {
+                if (personalInfo) {
+                    document.getElementById('personalInfoContent').innerHTML = 
+                        '<p><strong>Name:</strong> ' + personalInfo.name + '</p>' +
+                        '<p><strong>Email:</strong> ' + personalInfo.email + '</p>' +
+                        '<p><strong>Phone:</strong> ' + personalInfo.phone + '</p>' +
+                        '<p><strong>Address:</strong> ' + personalInfo.address + '</p>' +
+                        '<p><strong>Zip Code:</strong> ' + personalInfo.zip + '</p>' +
+                        '<p><strong>City:</strong> ' + personalInfo.city + '</p>';
+                    personalInfoCard.style.display = 'block'; // Show personal info card
+                }
+            }
+        
+            // Display stories
+            function displayStories() {
+                storyList.innerHTML = '';
+                for (var i = 0; i < stories.length; i++) {
+                    var story = stories[i];
+                    var card = document.createElement('div');
+                    card.className = 'story-card-horizontal';
+        
+                    var imageContainer = document.createElement('div');
+                    imageContainer.className = 'image-container';
+                    if (story.image) {
+                        var img = document.createElement('img');
+                        img.src = story.image;
+                        imageContainer.appendChild(img);
+                    }
+        
+                    var content = document.createElement('div');
+                    content.className = 'story-content';
+                    content.innerHTML = 
+                        '<p><strong>' + story.destination + '</strong></p>' +
+                        '<p>"' + story.story + '"</p>' +
+                        '<p><small>Posted on: ' + formatDate(story.date) + '</small></p>';
+        
+                    var removeBtn = document.createElement('button');
+                    removeBtn.textContent = 'Remove';
+                    removeBtn.className = 'special-button';
+                    removeBtn.onclick = function(index) {
+                        return function() {
+                            stories.splice(index, 1);
+                            localStorage.setItem('stories', JSON.stringify(stories));
+                            displayStories();
+                        };
+                    }(i);
+        
+                    card.appendChild(imageContainer);
+                    card.appendChild(content);
+                    card.appendChild(removeBtn);
+                    storyList.appendChild(card);
+                }
+            }
+        
+            // Handle personal info form submission
+            personalForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+        
+                var name = document.getElementById('name').value.trim();
+                var email = document.getElementById('email').value.trim();
+                var phone = document.getElementById('phone').value.trim();
+                var address = document.getElementById('address').value.trim();
+                var zip = document.getElementById('zipCode').value.trim();
+                var city = document.getElementById('city').value.trim();
+        
+                // Basic validation
+                if (!name || !email || !phone || !address || !zip || !city) {
+                    alert("Please fill in all required fields.");
+                    return;
+                }
+        
+                // Save personal info
+                personalInfo = { name: name, email: email, phone: phone, address: address, zip: zip, city: city };
+                localStorage.setItem('personalInfo', JSON.stringify(personalInfo));
+        
+                // Hide personal info form, show story form, and hide instruction message
+                personalForm.style.display = 'none';
+                document.getElementById('personalInfoTitle').style.display = 'none';
+                storyForm.style.display = 'block';
+                document.getElementById('storyInfoMsg').style.display = 'none'; // Hide instruction message
+        
+                // Display personal info card
+                displayPersonalInfo();
+            });
+        
+            // Handle story form submission
+            storyForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+        
+                var destination = document.getElementById('destination').value.trim();
+                var storyText = document.getElementById('story').value.trim();
+                var fileInput = document.getElementById('tripImage');
+        
+                if (!destination || !storyText || !fileInput.files[0]) {
+                    alert("Please fill in all fields and attach an image.");
+                    return;
+                }
+        
+                var newStory = {
+                    destination: destination,
+                    story: storyText,
+                    date: new Date().toISOString(),
+                    image: ''
+                };
+        
+                var reader = new FileReader();
+                reader.onload = function () {
+                    newStory.image = reader.result;
+                    stories.push(newStory);
+                    localStorage.setItem('stories', JSON.stringify(stories));
+                    displayStories();
+                    storyForm.reset();
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            });
+        
+            // Reset data
+            document.getElementById('resetButton').addEventListener('click', function () {
+                localStorage.removeItem('personalInfo');
+                localStorage.removeItem('stories');
+                location.reload();
+            });
+        
+            // Load data on page load
+            window.addEventListener('load', function() {
+                displayStories();
+        
+                if (personalInfo) {
+                    // If personal info exists, hide personal form, show story form and personal info card
+                    personalForm.style.display = 'none';
+                    document.getElementById('personalInfoTitle').style.display = 'none';
+                    storyForm.style.display = 'block';
+                    displayPersonalInfo();
+                    document.getElementById('storyInfoMsg').style.display = 'none'; // Hide instruction message
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!--
+      CIS-172 _ JavaScript
+      Final Project
+
+      Name: Farah Hammoud
+      Date: 05/03/2025   
+
+      Filename: Trip Calculator.html
+
+      Page Decription: This page contains the trip calculator which helps a traveler know how much daily budget 
+      to expect for a particular trip. It also calculates the number of days using the start date and end date of said trip.
+      This page uses user input in a form for that. It does not use localStorage because this is just a one time inquiry from a user.
+   -->
+    <meta charset="utf-8"/>
+    <title>Where To Fly Next - Trip Calculator</title>
+    <link rel="stylesheet" href="styling.css">
+    <script src="modernizr.custom.05819.js"></script>
+</head>    
+
+<body>
+    <div class="content">
+
+        <header>
+            <section class="logo-section-otherpages">
+                <img src="images/WhereFly Logo.png" height="100" width=auto alt="Where to Fly Next logo" class="logo">
+            </section>	
+
+           <nav>
+				<button class="headernav"><a href="about.html">About</a></button>
+				<button class="headernav"><a href="Trip Calculator.html">trip-calculator</a></button>
+				<button class="headernav"><a href="Share Your Trip.html">share-your-trip</a></button>
+				<button class="headernav"><a href="Travel Checklist.html">travel-checklist</a></button>
+				<button class="headernav"><a href="index.html">Home</a></button>
+			</nav>
+        </header>
+
+        <h1>Trip Calculator</h1>
+        <hr class="line-2"></hr>
+
+        <div class="text">
+            <p>This page provides you with a special calculator, an awesome tool for budgeting your next trip!<br>
+            Just enter your destination, travel dates, and total budget for the trip and the calculator will let you know how long your trip will be and what your daily budget should be to not go over the budget!</p>
+        </div>
+
+        <form class="form" id="tripCalculator">
+            <section class="form-content">
+                <label for="destination">Enter your Destination:</label><br>
+                <input type="text" id ="destination" required><br><br>
+
+                <label for="startDate"></label>Start Date:<br>
+                <input type="date" id ="startDate" required><br><br>
+
+                <label for="endDate">End Date:</label><br>
+                <input type="date" id ="endDate" required><br><br>
+
+                <label for="totalBudget">Enter your Total Trip Budget in dollars:</label><br>
+                <input type="number" id ="totalBudget" required><br><br>
+
+                <button class="form-button" type="submit">Calculate My Daily Budget</button>
+            </section>
+        </form>
+
+        <div id="result" class="result"></div>
+
+        <hr class="line-2"></hr>
+
+        <footer class="footer">
+            <hr class="line"></hr>
+            <div class="footer-section">
+                <p>fmhammoud4@hawkmail.hfcc.edu<br>
+				hfarahmorgann@gmail.com<br>
+                734 846-6651<br>
+                Instagram: <a href="https://www.instagram.com/fara_hhammoud/" target="_blank">My Travel Instagram</a><br><br>
+                <p><strong>&copy; 2025 Where to Fly Next | Web Designer and Web Developer_Farah Hammoud</strong></p>
+            </div>
+        </footer>
+
+        <script>
+            "use strict";
+            
+            // Defining a Trip function to hold the user's trip data and calculate the trip duration and daily budget
+            function Trip(destination, startDate, endDate, totalBudget) {
+                // converting the user inputs into date objects, and number(the total Budget)
+                this.destination = destination;
+                this.startDate = new Date(startDate);
+                this.endDate = new Date(endDate);
+                this.totalBudget = parseFloat(totalBudget);
+            }
+            
+            // Method to calculate how many full days the trip lasts by using the milliseconds per day.
+            Trip.prototype.getDuration = function () {
+                var millisecondsPerDay = 1000 * 60 * 60 * 24; // Calculating the number of milliseconds per day
+                var duration = (this.endDate - this.startDate) / millisecondsPerDay; // Calculating the duration of the trip
+                return Math.ceil(duration); // rounding up (to include the partial days) to whole days
+            };
+            
+            // Dividing the total budget by the number of days using a method
+            Trip.prototype.getDailyBudget = function () {
+                return this.totalBudget / this.getDuration();
+            };
+            
+            // Adding an event listener to the form to handle the submission of the form
+            document.getElementById("tripCalculator").addEventListener("submit", function (event) {
+                event.preventDefault();
+            
+                // Getting the form input values
+                var destination = document.getElementById("destination").value;
+                var startDate = document.getElementById("startDate").value;
+                var endDate = document.getElementById("endDate").value;
+                var totalBudget = document.getElementById("totalBudget").value;
+            
+                // Validating the date inputs
+                if (new Date(endDate) <= new Date(startDate)) {
+                    document.getElementById("result").textContent = "End date must be after start date.";
+                    return;
+                }
+            
+                // Creating a new Trip object with the input values
+                var trip = new Trip(destination, startDate, endDate, totalBudget);
+            
+                // Using the object's methods to get the trip duration and daily budget
+                var days = trip.getDuration();
+                var daily = trip.getDailyBudget().toFixed(2);
+            
+                // Creating a motivational message based on the trip length, just a nice message using the if/else logic
+                var message = "";
+                if (days <= 10) {
+                    message = "Enjoy your small getaway!";
+                } else if (days <= 15) {
+                    message = "Sounds like an amazing vacation! Rest well and have fun!";
+                } else {
+                    message = "Wow, that's a long adventure! I wonder when mine will be as long!";
+                }
+            
+                // Displaying the result inside the "result" div in the HTML code
+                document.getElementById("result").innerHTML = 
+                    "<p>Your daily spending budget for " + days + " days in " + trip.destination +
+                    " should be $" + daily + "</p><br>" +
+                    "<p>" + message + "</p>";
+            });
+            </script>
+    </div>
+</body>
+</html>

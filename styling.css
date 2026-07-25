@@ -1,0 +1,536 @@
+html, body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+}
+
+.content {
+                display: flex;
+                flex-direction: column;   
+                min-height: 100%;
+                line-height: 20px;         
+}
+
+
+/* THis formats the header section */
+header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #F9F3EC;
+                margin-bottom: 70px;
+                padding: 10px 20px;
+}
+
+.otherpagesheader {
+                        display: flex;
+                        justify-content: flex-end;
+                        align-items: center;
+                        background-color: #F9F3EC;
+                        margin-bottom: 0px;
+                }
+
+.headernav {
+                background: none;
+                margin-right: 10px;
+                border: none;                   
+                padding: 0;  
+                margin-left: auto; 
+                float: right;  
+}	
+
+.headernav a {
+                        font-family: Times New Roman, Arial, sans-serif;
+                        color: black;
+                        font-size: 19px;
+                        cursor: pointer;
+                       /* display: inline-block;*/
+                        text-decoration: underline;
+                        text-decoration-color: #B1453E;
+}			
+
+.headernav a:hover {
+		        text-decoration: none;  
+}
+
+.homeheader {
+                justify-content: right; 
+}
+
+/* This is the logo for the HOME PAGE */
+.logo-section {
+                display: flex;          
+                justify-content: center;  
+                align-items: center;    
+                height: 100px;            
+                background-color: #F9F3EC;    
+                padding: 20px;   
+                width: 100%;
+                box-sizing: border-box;
+        }
+
+/* Style the logo for both versions*/
+.logo {
+        max-height: 200%;        
+        max-width: 200%;  
+        object-fit: contain;        
+}
+
+.logo-section-otherpages {
+                                display: flex;          
+                                justify-content: left;    
+                                align-items: left;      
+                                height: 40px;        
+                                background-color: #F9F3EC;   
+                                padding: 10px;
+                                width: 60%;
+}
+
+.line-1 {
+                border: none;          
+                border-top: 5px solid black; 
+                margin: 50px 0;     
+                margin-left: 360px;
+                margin-right: 360px;    
+}
+
+.line-2 {
+                border: none;          
+                border-top: 1px solid black; 
+                margin: 50px 0;     
+                margin-left: 200px;
+                margin-right: 200px;    
+}
+
+.line-3 {
+                border: none;          
+                border-top: 2px solid black; 
+                margin: 15px 0;     
+                margin-right: 1000px;  
+                margin-top: 50px;  
+}
+
+/* Body formatting/ general style */
+body {
+        background-color: #F9F3EC;
+        font-family: 'Times New Roman', Arial, sans-serif;
+        color: black;
+}
+
+
+.text {
+                text-align: center;
+                margin-right: 100px;
+                margin-left: 100px;
+                margin-top: 35px;
+}
+
+.text-1 {
+        margin-right: 50px;
+        margin-left: 50px;
+}
+
+h1 {
+        text-align: center;
+        margin-top: 70px;
+        font-size: 60px;
+}
+
+.h2title {
+        text-align: center;
+        margin-bottom: 30px;
+        margin-top: 80px;
+        text-decoration: underline;
+}
+
+h3 {
+        font-size: 22px;
+        text-decoration: underline;
+}
+
+.catalogcontinent {
+                        font-style: italic;
+                        text-align: left;
+}
+
+
+/* Country catalog, countries cards */
+.card-section {
+                margin-left: 50px;
+                margin-right: 50px;
+                display: flex;
+                gap: 40px; 
+}
+    
+/* Style for each card */
+.card {
+        width: 350px;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: 18px;
+        color: #333;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.3); 
+        border-radius: 10px; /* Rounded corners */
+        padding: 10px;
+        margin-bottom: 20px;
+        height: auto;
+}
+
+.card img {
+        width: 100%;          
+        height: auto;          
+        object-fit: contain;   
+        border-radius: 5px;
+}
+
+.countriesnav {
+                background: none;
+                text-align: center;
+                border: none;                   
+                padding: 0;  
+                margin-top: 10px;              
+}
+
+.countriesnav a {
+                        font-family: Times New Roman, Arial, sans-serif;
+                        color: black;
+                        font-size: 20px;
+                        cursor: pointer;
+                        display: inline-block;
+}
+
+.countriesnav a:hover {
+                        background-color: #B1453E;
+                        color: #F9F3EC;
+}
+
+
+/* Footer styling */
+.footer {
+            background-color: #B1453E;
+            display: flex;
+            margin-top: auto;
+            padding: 20px;
+}
+
+.footer-section {
+                flex: 1;                 
+                padding: 10px;           
+                text-align: left;       
+}
+
+.footer a {
+                color: white;
+                text-decoration: none; 
+}
+
+.footer a:hover {
+                  text-decoration: underline; 
+}
+
+.line {
+        border: none;          
+        border-left: 2px solid black; 
+        height: 150px;
+        margin: 0 10px;         
+}
+
+/* extra formatting */
+.image {
+        padding: 50px;
+}
+
+
+/* This is the formatting for the Trip Calculator.html page */
+.result {
+        margin-top: 40px;
+        font-weight: bold;
+        text-align: center;
+        margin-right: 100px;
+        margin-left: 100px;
+        font-size: 20px;
+        line-height: 20px;
+}
+
+form {
+        display: flex;
+}
+
+.form {
+        background-color: #90c481;
+        font-family: Times New Roman, Arial, sans-serif;
+        width: 465px;
+        padding: 5px solid black;
+        font-weight: bold;         
+        width: 400px;
+        margin: 0 auto;
+        margin-top: 50px;
+}
+
+.form-button {
+                background-color: #B1453E;
+                color: #F9F3EC;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                font-family: 'Times New Roman', serif;
+                border-radius: 5px;
+                cursor: pointer;
+                display: block;
+                margin-left: 75px;
+}
+
+.form-button:hover {
+        background-color: #922f2c; 
+}
+
+.form-content{
+                margin: 10px;
+}
+
+/* This is the formatting for the About.html page */
+.photoGrid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 40px;
+                justify-content: center;
+                padding: 20px 50px;
+                align-items: flex-start;
+}
+
+.photoGrid2 {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: center;
+        padding: 20px 50px;
+}        
+
+.special-button {
+                        background-color: #B1453E;
+                        color: #F9F3EC;
+                        border: none;
+                        padding: 10px 20px;
+                        font-size: 16px;
+                        font-family: 'Times New Roman', serif;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        display: block;
+                        margin-left: auto;
+                        margin-right: auto;
+                }
+
+.special-button:hover {
+                        background-color: #922f2c; 
+}
+
+/* This is the Trip Checklist page formating */
+.form-section {
+                padding: 0 20px;
+                display: flex;
+                font-family: Times New Roman, Arial, sans-serif;
+                font-weight: bold;         
+                margin-top: 40px;
+                margin: 30px auto;
+                justify-content: center;
+                align-items: flex-start;
+                gap: 40px;
+                flex-wrap: wrap;
+                margin-bottom: 100px;
+}
+
+.form-container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 0 16px;
+                width: 300px;
+}
+
+.list-container ul {
+                list-style: disc;
+                padding-left: 20px;
+}
+    
+#visitedListText, #wishlistList {
+                                font-family: 'Times New Roman', serif;
+                                font-size: 16px;
+}
+
+.form-box {
+                width: 100%;
+                background-color: #90c481;
+                padding: 15px;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+}
+
+.percentage-display {
+                        text-align: center;
+                        font-size: 30px;
+                        margin: 10px auto;
+                        font-weight: bold;
+                        border: 1px solid black; 
+                        padding: 10px;            
+                        width: fit-content;     
+}
+
+.card2 {
+        width: 350px;
+        height: auto;
+        background-color: #98c08d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: 18px;
+        color: #333;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.3); 
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 20px;
+}
+
+.list-container {
+                width: 100%;
+                height: 250px;
+                background-color: #e4f0e0;
+                padding: 0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-sizing: border-box;
+                display: block;
+                flex-direction: column;
+                overflow-y: scroll;
+}
+
+.list-container ul {
+                        padding: 10px 15px;
+                        margin: 0;
+                        list-style: disc;
+}
+
+.list-container li {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 4px 0;
+}
+
+.delete-button {
+                background-color: #b1453e;
+                color: #fff;
+                border: none;
+                padding: 2px 8px;
+                margin-left: 10px;
+                cursor: pointer;
+                border-radius: 3px;
+                font-size: 14px;
+}
+
+.delete-button:hover {
+                        background-color: #922f2c;
+}
+
+.title {
+        text-align: center;
+        margin-bottom: 30px;
+        text-decoration: underline;
+}    
+
+/* This is for the Share Your trip page */
+.message {
+        text-align:center; 
+        color: red; 
+        font-weight: bold;
+}
+
+.personal-info-card {
+                        width: 350px;
+                        background-color: white;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                        font-size: 18px;
+                        color: #333;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.3); 
+                        border-radius: 10px;
+                        padding: 10px;
+                        margin-bottom: 20px;
+                        height: 300px;
+                        text-align: center;
+                        margin-left: auto;
+                        margin-right: auto;
+                        display: block; 
+}
+
+.personal-info-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 400px; 
+}
+
+/* Style for the horizontal story cards */
+.story-card-horizontal {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        width: 100%;
+                        max-width: 800px;
+                        margin: 20px auto;
+                        background-color: #fff;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.3);
+                        border-radius: 12px;
+                        padding: 20px;
+                        word-wrap: break-word;
+                        gap: 30px;
+}
+
+.story-card-horizontal .image-container {
+                                        flex-shrink: 0;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        height: 150px; 
+                                        width: auto;
+                                        overflow: hidden;
+}
+
+.story-card-horizontal .image-container img {
+                                                height: 100%; 
+                                                width: auto; 
+                                                object-fit: contain;
+                                                display: block;
+                                                transform: scale(1);
+                                                transform-origin: center;
+}
+
+.story-card-horizontal .story-content {
+                                        flex-grow: 1;
+                                        display: flex;
+                                        flex-direction: column;
+                                        justify-content: space-between;
+                                        text-align: left;
+                                        word-break: break-word;
+                                        overflow-wrap: break-word; 
+}
+
+.story-card-horizontal p {
+                        margin: 10px 0;
+}
+
+.story-card-container {
+                        display: flex;
+                        flex-direction: column; 
+                        align-items: center; 
+                        margin-top: 30px;
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!--
+      CIS-172 _ JavaScript
+      Final Project
+
+      Name: Farah Hammoud
+      Date: 05/03/2025   
+
+      Filename: About.html
+
+      Page Decription: This page is about me, the creator, it serves as an introduction of the inspiration and purpose of the website.
+      It lets the user know the context behind the creation of the website, why it was created, and why this idea. It dinamically show my own photo gallery of past trips.
+   -->
+    <meta charset="utf-8"/>
+    <title>Where To Fly Next - About</title>
+    <link rel="stylesheet" href="styling.css">
+    <script src="modernizr.custom.05819.js"></script>
+</head>    
+
+<body>
+    <div class="content">
+
+        <header>
+            <section class="logo-section-otherpages">
+                <img src="images/WhereFly Logo.png" height="100" width=auto alt="Where to Fly Next logo" class="logo">
+            </section>	
+
+            <nav>
+                <button class="headernav"><a href="about.html">About</a></button>
+                <button class="headernav"><a href="Trip Calculator.html">trip-calculator</a></button>
+                <button class="headernav"><a href="Share Your Trip.html">share-your-trip</a></button>
+                <button class="headernav"><a href="Travel Checklist.html">travel-checklist</a></button>
+                <button class="headernav"><a href="index.html">Home</a></button>
+            </nav>
+        </header>
+
+        <h1>About This Site</h1>
+        <hr class="line-2"></hr>
+
+        <div class="text">
+            <p><em>Where to Fly Next</em> is a personal, and original idea created to help travelers track, plan, and share their journeys in a fun and visual way.</p>
+
+            <h2 class="h2title">Meet the Creator</h2>
+            <p>Hi! I'm Farah Hammoud, a web developer and design student a well as a passionate explorer, and an enthusiast traveler. This site is part of my CIS-172-Javascript class final project, but also a reflection of my love for travelling. 
+                I hope this website will inspire you to explore the world in a well-planned manner!</p><br>
+                <p>My personal goal is to visit as many countries as possible in my life, experience as much stories as possible!</p>
+
+            <h2 class="h2title">My favorite pictures from my travels:</h2>
+            <div id="gallery">
+                <h3 id="country-title"></h3>
+                <div id="photo-grid" class="photoGrid"></div>
+                <br>
+                <button class="special-button" onclick="nextCountry()">Next Country</button>
+            </div>    
+        </div>      
+        
+        <hr class="line-2"></hr>
+
+        <footer class="footer">
+            <hr class="line"></hr>
+            <div class="footer-section">
+                <p>fmhammoud4@hawkmail.hfcc.edu<br>
+				hfarahmorgann@gmail.com<br>
+                734 846-6651<br>
+                Instagram: <a href="https://www.instagram.com/fara_hhammoud/" target="_blank">My Travel Instagram</a><br><br>
+                <p><strong>&copy; 2025 Where to Fly Next | Web Designer and Web Developer_Farah Hammoud</strong></p>
+            </div>
+        </footer>
+
+        <script>
+            "use strict";
+            
+            // Array with the file paths of the images I will contain in the photo gallery
+            var countryimages = [
+                { 
+                    name: "Senegal",
+                    photos: [
+                        { src: "images/Senegal1.jpeg", caption: "Sunset at a Residence in a Suburban area" },
+                        { src: "images/Senegal2.jpeg", caption: "An afternoon Sun reflecting on the Sea in an Empty Beach" },
+                        { src: "images/Senegal3.jpeg", caption: "A small passage on a Senegalese pirogue" }
+                    ]
+                },    
+                { 
+                    name: "Chicago",
+                    photos: [
+                        { src: "images/Chicago1.jpeg", caption: "View of the Ohio Street Beach" },
+                        { src: "images/Chicago2.jpeg", caption: "The Bean" },
+                        { src: "images/Chicago3.jpeg", caption: "Subway Platform going to ChinaTown" }
+                    ]
+                }, 
+                { 
+                    name: "Lebanon",
+                    photos: [
+                        { src: "images/Lebanon1.jpeg", caption: "View from the Descending Airplane" },
+                        { src: "images/Lebanon2.jpeg", caption: "The Raouche Rocks" }
+                    ]
+                }, 
+                { 
+                    name: "Turkey",
+                    photos: [
+                        { src: "images/Turkey1.jpeg", caption: "A Turkish Tourist Boat" },
+                        { src: "images/Turkey2.jpeg", caption: "View of the shore from a Boat" }
+                    ]
+                }
+            ];
+            
+            var countryIndex = 0;
+            
+            function showPhotosForCountry(index) {
+                var country = countryimages[index];
+                var photoGrid = document.getElementById("photo-grid");
+                var countryTitle = document.getElementById("country-title");
+            
+                // Update the title
+                countryTitle.textContent = country.name;
+            
+                // Clear any existing photos
+                photoGrid.innerHTML = "";
+            
+                // Add photos
+                for (var i = 0; i < country.photos.length; i++) {
+                    var photo = country.photos[i];
+            
+                    var wrapper = document.createElement("div");
+                    wrapper.className = "card";
+            
+                    var img = document.createElement("img");
+                    img.src = photo.src;
+                    img.alt = photo.caption;
+                    img.style.width = "90%";
+                    // img.style.width = "250px";
+            
+                    var caption = document.createElement("p");
+                    caption.textContent = photo.caption;
+            
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(caption);
+                    photoGrid.appendChild(wrapper);
+                }
+            }
+            
+            function nextCountry() {
+                countryIndex = (countryIndex + 1) % countryimages.length;
+                showPhotosForCountry(countryIndex);
+            }
+            
+            // Calling the function when the page loads
+            window.onload = function () {
+                showPhotosForCountry(countryIndex);
+            };
+            </script>            
+    </div>
+</body>
+</html>

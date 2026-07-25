@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!--
+      CIS-172 _ JavaScript
+      Final Project
+
+      Name: Farah Hammoud
+      Date: 05/03/2025   
+
+      Filename: Travel Checklist.html
+
+      Page Decription: This page allows the user to keep track of the countries they have visited in the past and those they wish to visit in the future.
+      They can also upload photos of the visited countries as a photo gallery format. It also a travel progress as a percentage based on all countries entered in both lists.
+      The logic avoids duplicates, removes wishlist items once visited, and saves all data in the user's browser for future visits using localstorage.
+   -->
+    <meta charset="utf-8"/>
+    <title>Where To Fly Next - Travel Checklist</title>
+    <link rel="stylesheet" href="styling.css">
+    <script src="modernizr.custom.05819.js"></script>
+</head>    
+
+<body>
+    <div class="content">
+
+        <header>
+            <section class="logo-section-otherpages">
+                <img src="images/WhereFly Logo.png" height="100" width=auto alt="Where to Fly Next logo" class="logo">
+            </section>	
+
+            <nav>
+				<button class="headernav"><a href="about.html">About</a></button>
+				<button class="headernav"><a href="Trip Calculator.html">trip-calculator</a></button>
+				<button class="headernav"><a href="Share Your Trip.html">share-your-trip</a></button>
+				<button class="headernav"><a href="Travel Checklist.html">travel-checklist</a></button>
+				<button class="headernav"><a href="index.html">Home</a></button>
+			</nav>
+        </header>
+
+        <h1>Travel Checklist</h1>
+        <hr class="line-2"></hr>
+
+        <div class="text">
+            <p>This page contains two forms for you to fill, one will keep track of all the countries you have visited and allow you to submit a picture for each. 
+                The other will make you enter a wishlist of countries you wish to visit in the future. Then it will display your travel diary and store the data in your own browser to see again whenever you reopen this page.
+            </p> 
+        </div>
+
+        <div class="form-section">
+            <div class="form-container">
+                <h2 class="title">My Visited Countries</h2>
+                <form class="form-box" id="visitedForm">
+                    <label class="label" for="visitedCountry">Country Name:</label>
+                    <input type="text" id="visitedCountry" required>
+        
+                    <label class="label" for="visitedImage">Upload a Picture:</label>
+                    <input type="file" id="visitedImage" accept="image/*">
+        
+                    <button class="special-button" type="submit">Add to Visited</button>
+                </form>
+            </div>    
+
+            <div class="form-container">
+                <h2 class="title">Visited List</h2>
+                <div class="list-container">
+                    <ul id="visitedListText"></ul>
+                </div>  
+            </div>
+        </div>      
+
+        <div class="form-section">
+            <div class="form-container">
+                <h2 class="title">Countries I Want to Visit</h2>
+                <form class="form-box" id="wishlistForm">
+                    <label class="label" for="wishlistCountry">Country Name:</label>
+                    <input type="text" id="wishlistCountry" required>
+        
+                    <button class="special-button" type="submit">Add to Wishlist</button>
+                </form>
+            </div>
+            
+            <div class="form-container">
+                <h2 class="title">My Wishlist</h2>
+                <div class="list-container">
+                    <ul id="wishlistList"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="percentage-display" id="percentage">
+            You have visited 0% of your listed countries.
+        </div>
+
+        <h2 class="h2title">My Picture Gallery</h2>
+        <div class="photoGrid2" id="visitedList"></div>
+        
+        <hr class="line-2"></hr>
+
+        <footer class="footer">
+            <hr class="line"></hr>
+            <div class="footer-section">
+                <p>fmhammoud4@hawkmail.hfcc.edu<br>
+				hfarahmorgann@gmail.com<br>
+                734 846-6651<br>
+                Instagram: <a href="https://www.instagram.com/fara_hhammoud/" target="_blank">My Travel Instagram</a><br><br>
+                <p><strong>&copy; 2025 Where to Fly Next | Web Designer and Web Developer_Farah Hammoud</strong></p>
+            </div>
+        </footer>
+
+        <script>
+            "use strict";
+            
+            var visitedForm = document.getElementById('visitedForm');
+            var wishlistForm = document.getElementById('wishlistForm');
+            var visitedList = document.getElementById('visitedList');
+            var visitedListText = document.getElementById('visitedListText');
+            var wishlistList = document.getElementById('wishlistList');
+            var percentageDisplay = document.getElementById('percentage');
+            
+            var visitedCountries = JSON.parse(localStorage.getItem('visited')) || [];
+            var wishlistCountries = JSON.parse(localStorage.getItem('wishlist')) || [];
+            
+            function saveToLocalStorage() {
+                localStorage.setItem('visited', JSON.stringify(visitedCountries));
+                localStorage.setItem('wishlist', JSON.stringify(wishlistCountries));
+            }
+            
+            function formatCountryName(name) {
+                return name.toLowerCase().replace(/\b\w/g, function (char) {
+                    return char.toUpperCase();
+                });
+            }
+            
+            function updateDisplay() {
+                visitedList.innerHTML = '';
+                visitedListText.innerHTML = '';
+                wishlistList.innerHTML = '';
+            
+                var displayedVisited = {};
+            
+                for (var i = 0; i < visitedCountries.length; i++) {
+                    var entry = visitedCountries[i];
+                    var country = entry.country;
+            
+                    if (!displayedVisited[country]) {
+                        var li = document.createElement('li');
+                        li.textContent = country;
+            
+                        var delBtn = document.createElement('button');
+                        delBtn.textContent = 'x';
+                        delBtn.className = 'delete-button';
+            
+                        delBtn.onclick = (function (countryCopy) {
+                            return function () {
+                                visitedCountries = visitedCountries.filter(function (item) {
+                                    return item.country !== countryCopy;
+                                });
+                                saveToLocalStorage();
+                                updateDisplay();
+                            };
+                        })(country);
+            
+                        li.appendChild(delBtn);
+                        visitedListText.appendChild(li);
+                        displayedVisited[country] = true;
+                    }
+            
+                    if (entry.image) {
+                        var card2 = document.createElement('div');
+                        card2.className = 'card2';
+            
+                        var img = document.createElement('img');
+                        img.src = entry.image;
+                        img.alt = country;
+                        img.style.width = '90%';
+            
+                        var caption = document.createElement('p');
+                        caption.textContent = country;
+            
+                        var deleteImgBtn = document.createElement('button');
+                        deleteImgBtn.textContent = 'Remove';
+                        deleteImgBtn.className = 'special-button delete-button';
+            
+                        deleteImgBtn.onclick = (function (indexCopy) {
+                            return function () {
+                                visitedCountries.splice(indexCopy, 1);
+                                saveToLocalStorage();
+                                updateDisplay();
+                            };
+                        })(i);
+            
+                        card2.appendChild(img);
+                        card2.appendChild(caption);
+                        card2.appendChild(deleteImgBtn);
+                        visitedList.appendChild(card2);
+                    }
+                }
+            
+                for (var j = 0; j < wishlistCountries.length; j++) {
+                    var wishlistCountry = wishlistCountries[j];
+                    var li2 = document.createElement('li');
+                    li2.textContent = wishlistCountry;
+            
+                    var delBtn2 = document.createElement('button');
+                    delBtn2.textContent = 'x';
+                    delBtn2.className = 'delete-button';
+            
+                    delBtn2.onclick = (function (indexCopy2) {
+                        return function () {
+                            wishlistCountries.splice(indexCopy2, 1);
+                            saveToLocalStorage();
+                            updateDisplay();
+                        };
+                    })(j);
+            
+                    li2.appendChild(delBtn2);
+                    wishlistList.appendChild(li2);
+                }
+            
+                var uniqueVisited = {};
+                for (var k = 0; k < visitedCountries.length; k++) {
+                    uniqueVisited[visitedCountries[k].country] = true;
+                }
+            
+                var visitedCount = Object.keys(uniqueVisited).length;
+                var total = visitedCount + wishlistCountries.length;
+                var percent = total ? Math.round((visitedCount / total) * 100) : 0;
+            
+                percentageDisplay.textContent = 'You have visited ' + percent + '% of your listed countries.';
+            }
+            
+            visitedForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var countryInput = document.getElementById('visitedCountry');
+                var fileInput = document.getElementById('visitedImage');
+                var formattedName = formatCountryName(countryInput.value.trim());
+            
+                if (!formattedName) return;
+            
+                var alreadyExists = false;
+                for (var i = 0; i < visitedCountries.length; i++) {
+                    if (visitedCountries[i].country === formattedName) {
+                        alreadyExists = true;
+                        break;
+                    }
+                }
+            
+                var reader = new FileReader();
+                reader.onload = function () {
+                    if (fileInput.files[0]) {
+                        visitedCountries.push({
+                            country: formattedName,
+                            image: reader.result
+                        });
+                    } else if (!alreadyExists) {
+                        visitedCountries.push({ country: formattedName, image: '' });
+                    }
+            
+                    for (var i = 0; i < wishlistCountries.length; i++) {
+                        if (wishlistCountries[i] === formattedName) {
+                            wishlistCountries.splice(i, 1);
+                            break;
+                        }
+                    }
+            
+                    saveToLocalStorage();
+                    updateDisplay();
+                    countryInput.value = '';
+                    fileInput.value = '';
+                };
+            
+                if (fileInput.files[0]) {
+                    reader.readAsDataURL(fileInput.files[0]);
+                } else {
+                    if (!alreadyExists) {
+                        visitedCountries.push({ country: formattedName, image: '' });
+            
+                        for (var i = 0; i < wishlistCountries.length; i++) {
+                            if (wishlistCountries[i] === formattedName) {
+                                wishlistCountries.splice(i, 1);
+                                break;
+                            }
+                        }
+            
+                        saveToLocalStorage();
+                        updateDisplay();
+                    }
+                    countryInput.value = '';
+                }
+            });
+            
+            wishlistForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var wishlistInput = document.getElementById('wishlistCountry');
+                var formattedName = formatCountryName(wishlistInput.value.trim());
+            
+                var exists = false;
+                for (var i = 0; i < wishlistCountries.length; i++) {
+                    if (wishlistCountries[i] === formattedName) {
+                        exists = true;
+                        break;
+                    }
+                }
+            
+                if (formattedName && !exists) {
+                    wishlistCountries.push(formattedName);
+                    saveToLocalStorage();
+                    updateDisplay();
+                }
+            
+                wishlistInput.value = '';
+            });
+            
+            window.onload = updateDisplay;
+            </script>
+    </div>
+</body>
+</html>
